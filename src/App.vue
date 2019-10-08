@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app-container">
+    <HeaderNav v-show="$route.meta.showHeader"/>
+    <router-view/>
+    <Footer v-show="$route.meta.showFooter"/>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script type="text/ecmascript-6">
+import Buyshop from '../src/pages/Buyshop/Buyshop';
+import Category from '../src/pages/Category/Category.vue';
+import General from '../src/pages/General/General.vue';
+import Home from '../src/pages/Home/Home.vue';
+import Person from '../src/pages/Person/Person.vue';
+import Footer from './common/Footer/Footer.vue';
+import HeaderNav from './common/HeaderNav/HeaderNav';
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+
+  export default {
+    components:{
+      Buyshop,
+      Category,
+      General,
+      Home,
+      Person,
+      Footer,
+      HeaderNav,
+
+    }
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus" rel="stylesheet/stylus">
+  .app-container
+    height 100%
+    
+ 
 </style>
