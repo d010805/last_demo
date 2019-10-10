@@ -26,30 +26,20 @@
     <!-- 轮播图下面部分 -->
     <div class="service">
       <ul>
-        <li class="item">
-          <span>网易自营品牌</span>
-        </li>
-        <li class="item">
-          <span>30天无忧退货</span>
-        </li>
-        <li class="item">
-          <span>48小时快速退款</span>
+        <li class="item" v-for="(nav,index) in home.homeData.policyDescList" :key="index">
+          <span>{{nav.desc}}</span>
         </li>
       </ul>
     </div>
     <!-- 类别列表 -->
     <div class="user_nav">
-      <ul>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
-        <li><a href="javascript:"><img src="http://yanxuan.nosdn.127.net/698205eb5a605f0f7c27aebadacd2317.png" alt=""><p>居家</p></a></li>
+      <ul v-if="home.homeData.kingKongModule">
+        <li v-for="(item,index) in home.homeData.kingKongModule.kingKongList">
+          <a href="javascript:">
+            <img :src="item.picUrl" alt="">
+            <p>{{item.text}}</p>
+          </a>
+        </li>
       </ul>
     </div>
     <!-- Boss图片 -->
@@ -59,36 +49,12 @@
     <!-- 四页列表 -->
     <div class="scene_light">
       <ul>
-        <li>
-          <p class="title">实时好评榜</p>
-          <p class="desc">精选优质好物</p>
+        <li v-for="(txt,index) in home.homeData.sceneLightShoppingGuideModule" :key="index">
+          <p class="title">{{txt.styleItem.title}}</p>
+          <p class="desc">{{txt.styleItem.desc}}</p>
           <div>
-             <img src="http://yanxuan.nosdn.127.net/e4092e675f895740f8e079980e8ebe63.png" alt="">
-              <img src="http://yanxuan.nosdn.127.net/6725890e905c4d51e333485f3a934192.png" alt="">
-          </div>
-         </li>
-        <li>
-          <p class="title">实时好评榜</p>
-          <p class="desc">精选优质好物</p>
-          <div>
-             <img src="http://yanxuan.nosdn.127.net/e4092e675f895740f8e079980e8ebe63.png" alt="">
-              <img src="http://yanxuan.nosdn.127.net/6725890e905c4d51e333485f3a934192.png" alt="">
-          </div>
-         </li>
-        <li>
-          <p class="title">实时好评榜</p>
-          <p class="desc">精选优质好物</p>
-          <div>
-             <img src="http://yanxuan.nosdn.127.net/e4092e675f895740f8e079980e8ebe63.png" alt="">
-              <img src="http://yanxuan.nosdn.127.net/6725890e905c4d51e333485f3a934192.png" alt="">
-          </div>
-         </li>
-        <li>
-          <p class="title">实时好评榜</p>
-          <p class="desc">精选优质好物</p>
-          <div>
-             <img src="http://yanxuan.nosdn.127.net/e4092e675f895740f8e079980e8ebe63.png" alt="">
-              <img src="http://yanxuan.nosdn.127.net/6725890e905c4d51e333485f3a934192.png" alt="">
+             <img :src="txt.styleItem.itemPicBeanList[0].picUrl" alt="">
+              <img :src="txt.styleItem.itemPicBeanList[1].picUrl" alt="">
           </div>
          </li>
       </ul>
@@ -98,96 +64,13 @@
       <div class="personal_title">私人定制</div>
       <div class="personal_swiperbox">
         <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
+        <div class="swiper-wrapper" v-if="personalShopArr">
+          <div class="swiper-slide"  v-for="(personalShop, index) in personalShopArr" :key="index">
+            <div class="personal_item"  v-for="(good ,index) in personalShop" :key="index">
+              <img :src="good.primaryPicUrl" alt="">
               <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
-              </div>
-            </div>
-            <div class="personal_item">
-              <img src="http://yanxuan.nosdn.127.net/4462d78e094d81c02278fdc02e4ddbfa.jpg" alt="">
-              <div class="personal_content">
-                <span class="name">100%羊毛 女式全成型超细高领羊毛衫</span>
-                <span class="price">¥259</span>
+                <span class="name">{{good.name}}</span>
+                <span class="price">¥{{good.retailPrice}}</span>
               </div>
             </div>
           </div>
@@ -202,21 +85,37 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {mapState} from 'vuex'
 import BScroll from '@better-scroll/core'
 import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css'
   
   export default {
 
+  computed:{
+    ...mapState({
+      home:state=>state.home
+    }),
+    personalShopArr () {
+        let arr3 = []
+        if(this.home.homeData.personalShop){
+          this.home.homeData.personalShop.reduce((arr, shop)=>{
+            arr.push(shop)
+            if(arr.length === 3){
+              arr3.push(arr)
+              arr = []
+            }
+            return arr
+          }, [])
+        }
+        return arr3
+      }
     
+  },
    mounted(){
-     const HeaderScroll = new BScroll('.tabWrap-left',{
-      click: true,
-      scrollX:true
-     })
-    //  const bodyScroll = new BScroll('.HomeContainer',{
+    //  const HeaderScroll = new BScroll('.tabWrap-left',{
     //   click: true,
-    //   scrollY:true
+    //   scrollX:true
     //  })
       const swiper=new Swiper('.swiper-container',{
         loop:true,

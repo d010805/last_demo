@@ -11,55 +11,69 @@
     </div>
     <!-- 滑动导航栏 -->
     <div class="tabWrap">
-      <div class="tabWrap-left">
-        <ul class="list">
-          <li class="item">
-            <a href="javascript:" class="active">推荐</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">居家生活</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">服饰鞋包</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">美食酒水</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">个户清洁</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">个户清洁</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">个户清洁</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">个户清洁</a>
-          </li>
-          <li class="item ">
-            <a href="javascript:">个户清洁</a>
+      <div class="tabWrap-left" v-if="home.homeData">
+        <ul class="list"  v-if="home.homeData.kingKongModule">
+          <li class="item" v-for="(nav,index) in home.homeData.kingKongModule.kingKongList" :key="index"
+           @click="togo(index)">
+            <a href="javascript:" 
+            :class="{active:home.homeData.kingKongModule.kingKongList[curIndex]===nav}"
+            >{{nav.text}}</a>
           </li>
         </ul>
       </div>
       <div class="tabWrap-right">
         <div class="img_box">
-          <img src="http://yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/arrow-down-3-799ded53ea.png" alt="">
+          <img src="http://yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/arrow-down-3-799ded53ea.png" alt=""
+          @click="isOpen=!isOpen"
+          >
         </div>
+      </div>
+       <!-- isOpen -->
+      <div class="navWrapper" v-show="isOpen">
+        <p>全部频道</p>
+        <ul class="navList" v-if="home.homeData.kingKongModule">
+          <li v-for="(nav,index) in home.homeData.kingKongModule.kingKongList" :key="index"
+            :class="{active_mask:home.homeData.kingKongModule.kingKongList[curIndex]===nav}"
+            @click="togo(index)"
+          >
+            <a href="javascript:void(0);"
+            >{{nav.text}}</a></li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {mapState} from 'vuex'
 import BScroll from '@better-scroll/core'
   export default {
     name :'HeaderNav',
-    mounted(){
-      const HeaderScroll = new BScroll('.tabWrap-left',{
-      click: true,
-      scrollX:true
-     })
+    data(){
+      return{
+        isOpen:false,
+        curIndex:0
+      }
+    },
+    computed:{
+      ...mapState({
+        home:state=>state.home
+      })
+    },
+    methods:{
+      togo(index){
+        this.curIndex=index
+      }
+    },
+    
+    async mounted(){
+     await this.$store.dispatch('getHomeData')
+      this.$nextTick(()=>{
+        const HeaderScroll = new BScroll('.tabWrap-left',{
+          click: true,
+          scrollX:true
+        })
+      })
     }
   }
 </script>
@@ -144,5 +158,41 @@ import BScroll from '@better-scroll/core'
         right -21px
         top 126px
         z-index 100
+      .navWrapper
+        position absolute
+        left 0
+        top 104px
+        width 100%
+        background-color #ffffff
+        p
+          height 60px
+          line-height 60px
+          padding-left 30px
+          font-size 28px
+          color #333
+          display flex
+          align-items center
+        .navList
+          display flex 
+          flex-wrap wrap
+          justify-content flex-start
+          padding-top 15px
+          overflow hidden
+          li
+            width 150px
+            height 56px
+            line-height 28px
+            text-align center
+            margin-bottom 40px
+            margin-left 30px
+            background #FAFAFA
+            border 1px solid #CCC
+            border-radius 4px
+            &.active_mask
+              border: 2px solid #b4282d
+            a 
+              color #333
+              font-size 24px
+              
  
 </style>

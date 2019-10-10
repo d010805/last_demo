@@ -2,45 +2,53 @@
 <div>
     <HeaderSlot>
       <span slot="fond">
-        <span :class="{active:isShow}" @click="isShow=true;$router.replace('/general/fond')">发现</span>
+        <span :class="{active:$route.path==='/general/fond'}" @click="isShow=true;$router.replace('/general/fond')">发现</span>
       </span>
-      <span slot="specia_choice" @click="isShow=false;$router.replace('/general/choice')" :class="{active:!isShow}">甄选家</span>
+      <span slot="specia_choice" @click="isShow=false;$router.replace('/general/choice')" :class="{active:$route.path==='/general/choice'}">甄选家</span>
     </HeaderSlot>
-    <div class="gen_tab" v-show="isShow?true:false">
+    <div class="gen_tab" v-show="$route.path==='/general/fond'?true:false">   <!--v-show="isShow?true:false"-->
       <ul>
-        <li class="active">推荐</li>
-        <li>好货内部价</li>
-        <li>晒单</li>
-        <li>选购指南</li>
-        <li>回购榜</li>
-        <li>达人</li>
-        <li>Home</li>
+        <li v-for="(item,index) in nav" :key="index" :class="{active:nav[curtIndex]===item}" @click="goto(index)">{{item.tabName}}</li>
       </ul>
     </div>
-    <router-view/>
+    <router-view></router-view>
 </div>
 </template>
 
 <script type="text/ecmascript-6">
 import BScroll from '@better-scroll/core'
-import Found from './Found/Found'
-import Choice from './Choice/Choice'
+// import Found from './Found/Found'
+// import Choice from './Choice/Choice'
+import { mapState } from 'vuex'
   export default {
+    name:"General",
     data(){
       return{
-        isShow:true
+        isShow:true,
+        curtIndex:0
       }
     },
-    mounted(){
+    methods:{
+      goto(index){
+        this.curtIndex=index
+      }
+    },
+    computed:{
+      ...mapState({
+        nav:state=>state.categoryList.nav
+      })
+    },
+    async mounted(){
+      await this.$store.dispatch('getRemmendNav')
      const ConentScroll = new BScroll('.gen_content',{
       click: true,
       scrollY:true
      })
     },
-    components:{
-      Found,
-      Choice
-    }
+    // components:{
+    //   Found,
+    //   Choice
+    // }
   }
 </script>
 
@@ -63,8 +71,7 @@ import Choice from './Choice/Choice'
       justify-content space-between
       li
         font-size 28px
-        height 100%
-        padding 0 10px
+        padding 0 5px
         &.active
           color #b4282d
           border-bottom 6px solid #b4282d

@@ -4,6 +4,9 @@ import router from './router';
 import Split from './common/split/split.vue';
 import HeaderSlot from './common/HeaderSlot/HeaderSlot.vue';
 
+import './mockData/mockServer';
+import store from './store/index';
+
 
 Vue.config.productionTip = false
 
@@ -12,5 +15,6 @@ Vue.component('HeaderSlot', HeaderSlot)
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

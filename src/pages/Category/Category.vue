@@ -8,72 +8,65 @@
         </div>
       </div>
     </div>
-    <div class="cate_content">
-      <div class="content_left">
+    <div class="cate_content"  v-if="cate.categoryL1List">
+      <div class="content_left" ref="left">
         <ul>
-          <li class="active">推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
-          <li>推荐专区</li>
+          <li v-for="(item,index) in cate.categoryL1List" :key="index" 
+          :class="{active:cate.categoryL1List[currtIndex]===item}" 
+          @click="togo(index)">{{item.name}}</li>
         </ul>
       </div>
-      <div class="content_right">
-        <img src="http://yanxuan.nosdn.127.net/ebf42d9334b2e23c009313eb097aadd2.jpg" alt="">
-        <ul>
-          <li>
-            <div>
-              <img src="http://yanxuan.nosdn.127.net/14bbdfb252b4ce346b8e9d019bb5b677.png" alt="">
-              <div>丁磊的好货推荐</div>
-            </div>
-          </li>
-          <li>
-            <div>
-              <img src="http://yanxuan.nosdn.127.net/14bbdfb252b4ce346b8e9d019bb5b677.png" alt="">
-              <div>丁磊的好货推荐</div>
-            </div>
-          </li>
-          <li>
-            <div>
-              <img src="http://yanxuan.nosdn.127.net/14bbdfb252b4ce346b8e9d019bb5b677.png" alt="">
-              <div>丁磊的好货推荐</div>
-            </div>
-          </li>
-          <li>
-            <div>
-              <img src="http://yanxuan.nosdn.127.net/14bbdfb252b4ce346b8e9d019bb5b677.png" alt="">
-              <div>丁磊的好货推荐</div>
-            </div>
-          </li>
-          <li>
-            <div>
-              <img src="http://yanxuan.nosdn.127.net/14bbdfb252b4ce346b8e9d019bb5b677.png" alt="">
-              <div>丁磊的好货推荐</div>
-            </div>
-          </li>
-          <li>
-            <div>
-              <img src="http://yanxuan.nosdn.127.net/14bbdfb252b4ce346b8e9d019bb5b677.png" alt="">
-              <div>丁磊的好货推荐</div>
-            </div>
-          </li>
-        </ul>
+      <div class="content_right"  ref="right">
+        <div class="rightscroll">
+          <img :src="cate.categoryL1List[currtIndex].wapBannerUrl" alt="">
+          <ul>
+            <li v-for="(txt,index) in cate.categoryL1List[currtIndex].subCateList" :key="index">
+              <div>
+                <img :src="txt.bannerUrl" alt="">
+                <div>{{txt.name}}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import BScroll from '@better-scroll/core'
+import { mapState } from 'vuex';
   export default {
+    name:"Category",
+    data(){
+      return{
+        currtIndex:0
+      }
+    },
+    computed:{
+      ...mapState({
+        cate:state=>state.category.cate
+      })
+    },
+    async mounted(){
+      await this.$store.dispatch('getCategoryData')
+      this.$nextTick(()=>{
+        const LeftScroll = new BScroll(this.$refs.left,{
+          click: true,
+          scrollX:true
+        })
+        const RightScroll = new BScroll(this.$refs.right,{
+          click: true,
+          scrollY:true
+        })
+      })
+    },
+    methods:{
+      togo(index){
+        this.currtIndex=index
+      }
+    }
+
   }
 </script>
 
@@ -85,6 +78,7 @@
     display flex
     justify-content center
     align-items center
+    z-index 100
     .search_box
       width 675px
       height 55px
@@ -100,17 +94,19 @@
           margin-right 5px
   .cate_content
     display flex
+    justify-content space-between
+    overflow hidden
     .content_left
-      position fixed
-      top 88px
-      left 0
       width 130px
+      height 100%
+      max-height 1144px
+      overflow hidden
       ul
         width 100%
         display flex
         flex-direction column
         li
-          width 162px
+          width 150px
           font-size 28px
           height 50px
           line-height 50px
@@ -122,30 +118,30 @@
               color #b4282d
               border-left 6px solid #b4282d
     .content_right
-      position fixed
-      right 0
-      top 88px
       font-size 28px
       width 527px
-      padding 15px 30px 100px 30px
-      img 
-        width 100%
-        height 192px
-      ul
-        display flex
-        flex-wrap wrap
-        li
-          width 144px
-          height 216px 
-          margin-right 30px
-          div
-            img 
-              width 143px
-              height 143px
+      margin 15px 30px 80px 30px
+      height 100%
+      .rightscroll
+        height  100%
+        img 
+          width 100%
+          height 192px
+        ul
+          display flex
+          flex-wrap wrap
+          li
+            width 144px
+            height 216px 
+            margin-right 30px
             div
-              width 143px
-              height 72px
-              text-align center
+              img 
+                width 143px
+                height 143px
+              div
+                width 143px
+                height 72px
+                text-align center
 
 
  

@@ -40,7 +40,11 @@
     name :'Footer',
     methods:{
       goto(path){
-        this.$router.replace(path )
+        if (this.$route.path!==path) {
+          this.$router.replace(path)
+        }else{
+          window.location.reload()
+        }
       }
     }
   }
