@@ -18,11 +18,11 @@
       </div>
       <div class="content_right"  ref="right">
         <div class="rightscroll">
-          <img :src="cate.categoryL1List[currtIndex].wapBannerUrl" alt="">
+          <img v-lazy="cate.categoryL1List[currtIndex].wapBannerUrl" alt="">
           <ul>
             <li v-for="(txt,index) in cate.categoryL1List[currtIndex].subCateList" :key="index">
               <div>
-                <img :src="txt.bannerUrl" alt="">
+                <img v-lazy="txt.bannerUrl" alt="">
                 <div>{{txt.name}}</div>
               </div>
             </li>

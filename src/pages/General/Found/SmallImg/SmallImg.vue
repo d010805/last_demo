@@ -1,21 +1,21 @@
 <template>
   <div class="productionList_wrapper"> 
-    <div class="recommend_rec recommend" v-for="(item,index) in content" :key="index">
+    <div class="recommend_rec recommend">
       <a href="javascript:void(0);" class="user_list"  >
         <div class="info">
           <div class="name">
             <span calss="avatar">
-              <img :src="item.topics[0].avatar" />
+              <img v-lazy="item.avatar" />
             </span>
-            <span>{{item.topics[0].nickname}}</span>
+            <span>{{item.nickname}}</span>
           </div>
-          <div class="title">{{item.topics[0].title}}</div>
-          <div class="desc">{{item.topics[0].subTitle}}</div>
-          <div class="admire"><i class="iconfont icon-kanguo"></i><span>{{item.topics[0].readCount}}人看过</span></div>
+          <div class="title">{{item.title}}</div>
+          <div class="desc">{{item.subTitle}}</div>
+          <div class="admire"><i class="iconfont icon-kanguo"></i><span>{{item.readCount}}人看过</span></div>
           
         </div>
         <div class="pic">
-          <img :src="item.topics[0].picUrl" alt="pic">
+          <img v-lazy="item.picUrl" alt="pic">
         </div>
       </a>
       <Split></Split>
@@ -28,11 +28,14 @@
  import {mapState} from 'vuex'
   export default {
     name: 'SmallImg',
-    computed: {
-      ...mapState({
-        content:state=>state.categoryList.content
-      })
-    }
+    props: {
+      item: Object
+    },
+    // computed: {
+    //   ...mapState({
+    //     content:state=>state.categoryList.content
+    //   })
+    // }
   }
 </script>
 

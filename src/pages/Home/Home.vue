@@ -36,7 +36,7 @@
       <ul v-if="home.homeData.kingKongModule">
         <li v-for="(item,index) in home.homeData.kingKongModule.kingKongList">
           <a href="javascript:">
-            <img :src="item.picUrl" alt="">
+            <img v-lazy="item.picUrl" alt="">
             <p>{{item.text}}</p>
           </a>
         </li>
@@ -53,8 +53,8 @@
           <p class="title">{{txt.styleItem.title}}</p>
           <p class="desc">{{txt.styleItem.desc}}</p>
           <div>
-             <img :src="txt.styleItem.itemPicBeanList[0].picUrl" alt="">
-              <img :src="txt.styleItem.itemPicBeanList[1].picUrl" alt="">
+             <img v-lazy="txt.styleItem.itemPicBeanList[0].picUrl" alt="">
+              <img v-lazy="txt.styleItem.itemPicBeanList[1].picUrl" alt="">
           </div>
          </li>
       </ul>
@@ -67,7 +67,7 @@
         <div class="swiper-wrapper" v-if="personalShopArr">
           <div class="swiper-slide"  v-for="(personalShop, index) in personalShopArr" :key="index">
             <div class="personal_item"  v-for="(good ,index) in personalShop" :key="index">
-              <img :src="good.primaryPicUrl" alt="">
+              <img v-lazy="good.primaryPicUrl" alt="">
               <div class="personal_content">
                 <span class="name">{{good.name}}</span>
                 <span class="price">¥{{good.retailPrice}}</span>

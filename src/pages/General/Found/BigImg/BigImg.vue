@@ -2,16 +2,16 @@
   <div class="recommend_container">
     <div class="recommend_wrapper">
       <div class="recommend_wra recommend">
-        <a href="javascript:void(0);" v-for="(item,index) in content" :key="index">
+        <a href="javascript:void(0);">
           <div class="name">
-              <img :src="item.topics[0].avatar" />
-            <span>{{item.topics[0].nickname}}</span>
+              <img v-lazy="item.avatar" />
+            <span>{{item.nickname}}</span>
           </div>
-          <div class="title">{{item.topics[0].title}}</div>
+          <div class="title">{{item.title}}</div>
           <div class="pic">
-            <img :src="item.topics[0].picUrl" alt="pic">
+            <img v-lazy="item.picUrl" alt="pic">
           </div>
-          <div class="admire"><i class="iconfont icon-kanguo"></i><span>{{item.topics[0].readCount}}人看过</span></div>
+          <div class="admire"><i class="iconfont icon-kanguo"></i><span>{{item.readCount}}人看过</span></div>
           <Split></Split>
         </a>
       </div>
@@ -24,11 +24,14 @@
   import {mapState} from 'vuex'
   export default {
     name: 'BigImg',
-    computed: {
-      ...mapState({
-        content:state=>state.categoryList.content
-      })
-    }
+    props: {
+      item: Object
+    },
+    // computed: {
+    //   ...mapState({
+    //     content:state=>state.categoryList.content
+    //   })
+    // }
   }
 </script>
 
@@ -40,12 +43,11 @@
     overflow hidden
     .recommend
       background #fff
-      margin 20px 0
-      padding 16px 30px
+      padding 0px 30px
       border-sizing border-box
       a
         .name
-          margin-bottom 20px
+          // margin-bottom 20px
           font-size 26px
           color #333333
           display flex

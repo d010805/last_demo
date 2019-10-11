@@ -1,13 +1,13 @@
-import Buyshop from '../pages/Buyshop/Buyshop.vue';
-import Category from '../pages/Category/Category.vue';
-import General from '../pages/General/General.vue';
-import Home from '../pages/Home/Home.vue';
-import Person from '../pages/Person/Person.vue';
-import Found from '../pages/General/Found/Found.vue';
-import Choice from '../pages/General/Choice/Choice.vue';
-import Phone from '../pages/Person/Phone/Phone.vue';
-import Email from '../pages/Person/Email/Email.vue';
-import Search from '../pages/Search/Search.vue';
+const Buyshop = () => import('../pages/Buyshop/Buyshop.vue')
+const Category = () => import('../pages/Category/Category.vue')
+const General = () => import('../pages/General/General.vue')
+const Home = () => import('../pages/Home/Home.vue')
+const Person = () => import('../pages/Person/Person.vue')
+const Found = () => import('../pages/General/Found/Found.vue')
+const Choice = () => import('../pages/General/Choice/Choice.vue')
+const Phone = () => import('../pages/Person/Phone/Phone.vue')
+const Email = () => import('../pages/Person/Email/Email.vue')
+const Search = () => import('../pages/Search/Search.vue')
 
 export default [
   {

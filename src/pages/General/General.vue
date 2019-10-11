@@ -11,7 +11,9 @@
         <li v-for="(item,index) in nav" :key="index" :class="{active:nav[curtIndex]===item}" @click="goto(index)">{{item.tabName}}</li>
       </ul>
     </div>
-    <router-view></router-view>
+    <div class="things-content">
+      <router-view></router-view>
+    </div>
 </div>
 </template>
 
@@ -40,10 +42,10 @@ import { mapState } from 'vuex'
     },
     async mounted(){
       await this.$store.dispatch('getRemmendNav')
-     const ConentScroll = new BScroll('.gen_content',{
-      click: true,
-      scrollY:true
-     })
+    //  const ConentScroll = new BScroll('.forLazy',{
+    //   click: true,
+    //   scrollY:true
+    //  })
     },
     // components:{
     //   Found,
@@ -75,4 +77,7 @@ import { mapState } from 'vuex'
         &.active
           color #b4282d
           border-bottom 6px solid #b4282d
+  .things-content
+    width 100%
+    padding-top 164px
 </style>

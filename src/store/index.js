@@ -9,6 +9,7 @@ import mutations from './mutations';
 import category from './modules/category';
 import home from './modules/home';
 import categoryList from './modules/categoryList';
+import Search from './modules/Search';
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     modules:{
         category,
         home,
-        categoryList
+        categoryList,
+        Search
     }
 })
